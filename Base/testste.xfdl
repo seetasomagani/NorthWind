@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="1.5">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="customers" classname="customers" left="0" top="0" width="1024" height="768" titletext="New Form" onload="customers_onload" onclick="customers_onclick">
+    <Layouts>
+      <Layout width="600" height="768">
+        <Grid id="Grid00" taborder="0" useinputpanel="false" left="2.34%" top="21" height="315" binddataset="customersDS" width="630" oncellclick="Grid00_oncellclick" onselectchanged="Grid00_onselectchanged" onlbuttonup="Grid00_onlbuttonup">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="130"/>
+                <Column size="157"/>
+                <Column size="126"/>
+                <Column size="93"/>
+                <Column size="111"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="ContactName"/>
+                <Cell col="1" text="CompanyName"/>
+                <Cell col="2" text="ContactTitle"/>
+                <Cell col="3" text="Country"/>
+                <Cell col="4" text="Phone"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ContactName"/>
+                <Cell col="1" text="bind:CompanyName"/>
+                <Cell col="2" text="bind:ContactTitle"/>
+                <Cell col="3" text="bind:Country"/>
+                <Cell col="4" text="bind:Phone"/>
+              </Band>
+            </Format>
+            <Format id="mobile_format">
+              <Columns>
+                <Column size="130"/>
+                <Column size="157"/>
+              </Columns>
+              <Rows>
+                <Row size="56"/>
+              </Rows>
+              <Band id="body">
+                <Cell style="font:16 arial;" text="bind:ContactName"/>
+                <Cell col="1" style="font:16 arial;" text="bind:CompanyName" wordwrap="english"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="BottomMenu" taborder="1" left="24" top="336" height="100" style="background:cornflowerblue;" width="480" onfling="BottomMenu_onfling" onslide="BottomMenu_onslide" onslidestart="BottomMenu_onslidestart" ontouchmove="BottomMenu_ontouchmove" onpinchend="BottomMenu_onpinchend">
+          <Layouts>
+            <Layout width="480" height="140">
+              <Static id="Static00" taborder="0" left="0%" top="0" right="60%" height="40" style="background:transparent;font:14 Dotum;"/>
+              <Static id="Static01" taborder="1" left="40%" top="0" right="20%" height="40" style="font:14 Dotum;"/>
+              <Static id="Static02" taborder="2" left="0%" top="40" right="60%" height="45" style="font:14 Dotum;" onfling="BottomMenu_Static02_onfling"/>
+              <Static id="Static03" taborder="3" left="40%" top="40" right="20%" height="54" style="font:14 Dotum;" onfling="BottomMenu_Static03_onfling"/>
+              <Button id="Button00" taborder="4" left="80%" top="0" right="0%" bottom="0" style="background:blue;border:0 solid #999999ff ;" onclick="BottomMenu_Button00_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+      <Layout name="GS5" screenid="user_GS5" width="480" height="960">
+        <Grid id="Grid00" left="0%" top="0" height="600" formatid="mobile_format" right="0" autofittype="col"/>
+        <Div id="BottomMenu" left="0%" top="600" height="120" right="0%" style="background:cornflowerblue;">
+          <Layouts>
+            <Layout width="480" height="140">
+              <Static id="Static00" taborder="0" left="0%" top="0" right="50%" height="40" style="background:transparent;font:14 Dotum;"/>
+              <Static id="Static01" taborder="1" left="50%" top="0" right="0%" height="40" style="font:14 Dotum;"/>
+              <Static id="Static02" taborder="2" left="0%" top="40" right="50%" height="45" style="font:14 Dotum;"/>
+              <Static id="Static03" taborder="3" left="50%" top="40" right="0%" height="54" style="font:14 Dotum;"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="selectedContactDS" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="ContactName" type="STRING" size="256"/>
+          <Column id="ContactTitle" type="STRING" size="256"/>
+          <Column id="Country" type="STRING" size="256"/>
+          <Column id="Phone" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="selectedCompanyDS" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="CompanyName" type="STRING" size="256"/>
+          <Column id="Address" type="STRING" size="256"/>
+          <Column id="City" type="STRING" size="256"/>
+          <Column id="Country" type="STRING" size="256"/>
+          <Column id="CustomerID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="BottomMenu.Static00" propid="text" datasetid="selectedContactDS" columnid="ContactName"/>
+      <BindItem id="item1" compid="BottomMenu.Static01" propid="text" datasetid="selectedContactDS" columnid="ContactTitle"/>
+      <BindItem id="item2" compid="BottomMenu.Static02" propid="text" datasetid="selectedContactDS" columnid="Country"/>
+      <BindItem id="item3" compid="BottomMenu.Static03" propid="text" datasetid="selectedContactDS" columnid="Phone"/>
+    </Bind>
+    <Script type="xscript5.0"><![CDATA[
+application.set_usewaitcursor('true');
+
+this.customers_onload = function(obj:Form, e:nexacro.LoadEventInfo)
+{
+	myDataRef = new Firebase('https://north-wind.firebaseio.com/');
+	
+	var form = this;
+	
+	myDataRef.once("value", function (snap) {
+              
+              var customers = snap.val().customers;
+              var keys = Object.keys(customers);
+              var values = [];
+              for(var i=0; i<keys.length; i++) {
+				values.push(customers[keys[i]]);
+              }
+              application.customersDS.bindJSON(values);
+	});
+
+	myDataRef.on('child_added', function (snapshot) {
+              var message = snapshot.val();
+              
+          });
+}
+
+
+this.Grid00_oncellclick = function(obj:Grid, e:nexacro.GridClickEventInfo)
+
+{
+
+	
+
+}
+
+
+
+this.Grid00_onlbuttonup = function(obj:Grid, e:nexacro.GridMouseEventInfo)
+
+{
+
+	var cellIndex = e.cell;
+
+	//this.ContactDetails.set_left(e.clientX);
+
+	//this.ContactDetails.set_right(e.clientX + 230);
+
+	console.log(e.clientX + " " + e.clientY);
+
+	
+
+	//console.log(MouseEventInfo.canvasX + " " + MouseEventInfo.canvasY);
+
+	if(cellIndex == 0) {
+
+		
+
+	}
+
+}
+
+
+
+this.customers_onclick = function(obj:Form,  e:nexacro.ClickEventInfo)
+
+{
+
+	console.log(e.canvasX + " " + e.canvasY);
+
+}
+
+
+
+var selectedContact;
+
+
+
+this.Grid00_onselectchanged = function(obj:Grid, e:nexacro.GridSelectEventInfo)
+
+{
+
+	this.selectedContact = application.customersDS.getRow(e.row);
+
+	this.selectedContactDS.bindJSON(this.selectedContact);
+
+}
+
+
+
+this.BottomMenu_Button00_onclick = function(obj:Button,  e:nexacro.ClickEventInfo)
+
+{
+
+	this.BottomMenu.Static00.set_text(this.selectedContact.CompanyName);
+
+	this.BottomMenu.Static01.set_text(this.selectedContact.CustomerID);
+
+	this.BottomMenu.Static02.set_text(this.selectedContact.City);
+
+	this.BottomMenu.Static03.set_text(this.selectedContact.Country);
+
+}
+
+]]></Script>
+  </Form>
+</FDL>

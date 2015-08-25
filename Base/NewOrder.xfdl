@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="1.5">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="NewOrder" classname="NewOrder" left="0" top="0" width="1024" height="768" titletext="New Form">
+    <Layouts>
+      <Layout>
+        <Edit id="Edit00" taborder="0" left="4.88%" top="47" right="78.91%" height="52"/>
+        <Combo id="customersCombo" taborder="1" text="Customers" innerdataset="customersComboDS" codecolumn="CustomerID" datacolumn="CompanyName" onitemchanged="customersCombo_onitemchanged" left="24.22%" top="49" right="59.18%" height="49"/>
+        <Calendar id="Calendar00" taborder="2" left="4.98%" top="129" right="78.91%" height="49"/>
+        <TextArea id="CustomerAddress" taborder="3" wordwrap="english" left="29.1%" top="132" right="38.48%" height="148" oneditclick="CustomerAddress_oneditclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.0"><![CDATA[
+this.CustomerAddress_oneditclick = function(obj:TextArea,  e:nexacro.EditClickEventInfo)
+{
+	
+}
+]]></Script>
+  </Form>
+</FDL>

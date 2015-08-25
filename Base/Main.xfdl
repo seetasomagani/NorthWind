@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="1.5">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="Main" classname="Main" left="0" top="0" width="1400" height="1029" titletext="New Form" onload="Main_onload">
+    <Layouts>
+      <Layout>
+        <Grid id="Grid00" taborder="0" useinputpanel="false" left="2.34%" top="53" height="315" binddataset="customersDS" width="630" oncellclick="Grid00_oncellclick" onselectchanged="Grid00_onselectchanged">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="130"/>
+                <Column size="157"/>
+                <Column size="126"/>
+                <Column size="93"/>
+                <Column size="111"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="ContactName"/>
+                <Cell col="1" text="CompanyName"/>
+                <Cell col="2" text="ContactTitle"/>
+                <Cell col="3" text="Country"/>
+                <Cell col="4" text="Phone"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ContactName"/>
+                <Cell col="1" text="bind:CompanyName"/>
+                <Cell col="2" text="bind:ContactTitle"/>
+                <Cell col="3" text="bind:Country"/>
+                <Cell col="4" text="bind:Phone"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="1" text="Customers" left="4.39%" top="16" right="79.69%" height="29" style="font:20 Dotum;"/>
+        <Static id="Static01" taborder="4" text="Orders" left="56.36%" top="16" right="27.71%" height="29" style="font:20 Dotum;"/>
+        <Grid id="Grid02" taborder="5" useinputpanel="false" left="56.64%" top="51" right="7.5%" height="321" binddataset="ordersDS" oncellclick="Grid02_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="72"/>
+                <Column size="141"/>
+                <Column size="139"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="OrderDate"/>
+                <Cell col="1" text="ShipCity"/>
+                <Cell col="2" text="ShipCountry"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:OrderDate"/>
+                <Cell col="1" text="bind:ShipCity"/>
+                <Cell col="2" text="bind:ShipCountry"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00" taborder="6" text="Place New Order" left="2.36%" top="601" right="86.07%" height="46"/>
+        <Button id="Button01" taborder="11" text="Show Orders" left="47.64%" top="183" right="43.5%" height="49" onclick="Button01_onclick"/>
+        <Static id="emplFirstName" taborder="13" left="12%" top="480" right="78.57%" height="48" style="background:#ddffffff;font:bold 9 Dotum;"/>
+        <Static id="Static03" taborder="14" text="Who made the sale?" left="2.5%" top="473" right="88.57%" height="62" onclick="Static03_onclick"/>
+        <Static id="Static02" taborder="17" text="Customer call cheat sheet" left="2.57%" top="396" right="69.64%" height="50" style="font:20 Dotum;"/>
+        <Button id="Button02" taborder="18" text="Button02" left="28.21%" top="466" right="56.5%" height="65" onclick="Button02_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="employeesDS" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="FirstName" type="STRING" size="256"/>
+          <Column id="LastName" type="STRING" size="256"/>
+          <Column id="City" type="STRING" size="256"/>
+          <Column id="BirthDate" type="STRING" size="256"/>
+          <Column id="Notes" type="STRING" size="256"/>
+          <Column id="EmployeeID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ordersDS" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="OrderDate" type="STRING" size="256"/>
+          <Column id="ShipCity" type="STRING" size="256"/>
+          <Column id="ShipCountry" type="STRING" size="256"/>
+          <Column id="EmployeeID" type="STRING" size="256"/>
+          <Column id="CustomerID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="customersComboDS" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="CustomerID" type="STRING" size="256"/>
+          <Column id="CompanyName" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="weatherDS" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="main" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="restaurants" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="Checkins" type="STRING" size="256"/>
+          <Column id="Name" type="STRING" size="256"/>
+          <Column id="Address" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind/>
+    <Script type="xscript5.0"><![CDATA[
+var myDataRef; 
+var selectedCustomerID;
+var selectedCustomer;
+
+application.set_usewaitcursor('true');
+
+this.Main_onload = function(obj:Form, e:nexacro.LoadEventInfo)
+{
+	myDataRef = new Firebase('https://north-wind.firebaseio.com/');
+	
+	var form = this;
+	
+	myDataRef.once("value", function (snap) {
+              
+              var customers = snap.val().customers;
+              var keys = Object.keys(customers);
+              var values = [];
+              for(var i=0; i<keys.length; i++) {
+				values.push(customers[keys[i]]);
+              }
+              application.customersDS.bindJSON(values);
+              form.customersComboDS.bindJSON(values);
+              
+              keys = Object.keys(snap.val().employees);
+              values = [];
+              for(var i=0; i<keys.length; i++) {
+				values.push(snap.val().employees[keys[i]]);
+              }
+              form.employeesDS.bindJSON(values);
+	});
+
+	myDataRef.on('child_added', function (snapshot) {
+              var message = snapshot.val();
+              
+          });
+}
+
+this.Grid02_oncellclick = function(obj:Grid, e:nexacro.GridClickEventInfo)
+{
+	var employeeID = this.ordersDS.getColumn(e.row, 'EmployeeID');
+	this.employeesDS.filter("EmployeeID == '" + employeeID + "'");
+	this.emplFirstName.set_text(this.employeesDS.getColumn(0, "FirstName"));
+}
+
+this.Grid00_oncellclick = function(obj:Grid, e:nexacro.GridClickEventInfo)
+{
+	//var customerID = this.customersDS.getColumn(e.row, 'CustomerID');
+	//this.ordersDS.filter("CustomerID == '" + customerID + "'");
+}
+
+this.customersCombo_onitemchanged = function(obj:Combo, e:nexacro.ItemChangeEventInfo)
+{
+	var address = application.customersDS.getColumn(e.postindex, 'Address');
+	var city = application.customersDS.getColumn(e.postindex, 'City');
+	var country = application.customersDS.getColumn(e.postindex, 'Country');
+	var postalCode = application.customersDS.getColumn(e.postindex, 'PostalCode');
+	this.CustomerAddress.set_value(address + '<CR>' + city + '<CR>' + country + '<CR>' + postalCode);
+}
+
+this.Button01_onclick = function(obj:Button,  e:nexacro.ClickEventInfo)
+{
+	if(!selectedCustomer)
+		return;
+	
+	var custId = selectedCustomer.CustomerID;
+	var form = this;
+ 	var ordersRef = new Firebase('https://north-wind.firebaseio.com/orders');
+ 	ordersRef.orderByChild("CustomerID").equalTo(custId).once("value", function (snap) {
+		var orders = snap.val();
+		var keys = Object.keys(orders);
+		var values = [];
+        for(var i=0; i<keys.length; i++) {
+			values.push(orders[keys[i]]);
+        }
+        form.ordersDS.bindJSON(values);
+	});
+
+}
+
+this.Grid00_onselectchanged = function(obj:Grid, e:nexacro.GridSelectEventInfo)
+{
+	selectedCustomer = application.customersDS.getRow(e.row);
+}
+
+this.Static03_onclick = function(obj:Static,  e:nexacro.ClickEventInfo)
+{
+
+// var F_SQ_V_S_URL = "https://api.foursquare.com/v2/venues/search";
+// var CLIENT_ID = "4HEHVGR2C4HXATAEWXP4VUTQRFP42KAI3EMNFCVH41VNQYZW";
+// var CLIENT_SECRET = "LJDPXM2IM3Z0NN2P1IPDTCBQ5T332TCVOWTJXI1Q5IZG14LA";
+// var VERSION = "20130815";
+// 	this.transaction(
+// 		"search",
+// 		"http://api.openweathermap.org/data/2.5/weather?q=London,uk",
+// 		null,
+// 		"weatherDS=weather.0",
+// 		null,
+// 		null,
+// 		true,
+// 		4,
+// 		false
+// 	);
+
+// 	this.transaction(
+// 		"search",
+// 		F_SQ_V_S_URL 
+// 		+ "?client_id=" + CLIENT_ID
+// 		+ "&client_secret=" + CLIENT_SECRET
+// 		+ "&v=" + VERSION
+// 		+ "&near" + "brooklyn"
+// 		+ "&query" + "indian"
+// 		,
+// 		null,
+// 		"restaurantsDS=response.venues",
+// 		null,
+// 		null,
+// 		true,
+// 		4,
+// 		false
+// 	);
+}
+
+this.Button02_onclick = function(obj:Button,  e:nexacro.ClickEventInfo)
+{
+	Camera.takePicture();
+}
+]]></Script>
+  </Form>
+</FDL>

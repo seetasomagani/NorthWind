@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="1.5">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="Orders" classname="Orders" left="0" top="0" width="1024" height="768" titletext="New Form">
+    <Layouts>
+      <Layout width="1024" height="768"/>
+      <Layout name="GS5" screenid="user_GS5" width="480" height="720"/>
+    </Layouts>
+  </Form>
+</FDL>

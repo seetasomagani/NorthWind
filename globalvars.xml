@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GlobalVariables>
+  <Dataset id="customersDS">
+    <ColumnInfo>
+      <Column id="ContactName" type="STRING" size="256"/>
+      <Column id="CompanyName" type="STRING" size="256"/>
+      <Column id="ContactTitle" type="STRING" size="256"/>
+      <Column id="Country" type="STRING" size="256"/>
+      <Column id="Phone" type="STRING" size="256"/>
+      <Column id="CustomerID" type="STRING" size="256"/>
+      <Column id="City" type="STRING" size="256"/>
+      <Column id="Address" type="STRING" size="256"/>
+      <Column id="PostalCode" type="STRING" size="256"/>
+    </ColumnInfo>
+  </Dataset>
+  <Variable id="selectedCustomer" initval="null"/>
+  <Variable id="myDataRef" initval="null"/>
+</GlobalVariables>
