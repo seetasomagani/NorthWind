@@ -4,46 +4,48 @@
   <Form id="customers" classname="customers" left="0" top="0" width="1024" height="768" titletext="North Wind Traders" onload="customers_onload">
     <Layouts>
       <Layout width="1024" height="768">
-        <Grid id="Grid00" taborder="0" useinputpanel="false" left="2.34%" top="95" height="313" binddataset="customersDS" width="630" onselectchanged="Grid00_onselectchanged" style="background:#c5cae9ff;border:0 solid #9f8f71ff,0 none #808080ff,0 none #808080ff,0 none #808080ff;shadow:outer 0,4 4 gray;">
+        <Grid id="Grid00" taborder="0" useinputpanel="false" left="2.34%" top="95" height="313" binddataset="customersDS" width="949" onselectchanged="Grid00_onselectchanged" style="background:#c5cae9ff;border:0 solid #9f8f71ff,0 none #808080ff,0 none #808080ff,0 none #808080ff;shadow:outer 0,4 4 gray;">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="130"/>
-                <Column size="157"/>
-                <Column size="126"/>
-                <Column size="93"/>
-                <Column size="111"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
+                <Col size="80"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
+                <Row band="head" size="24"/>
+                <Row band="body" size="24"/>
               </Rows>
               <Band id="head">
-                <Cell text="ContactName"/>
-                <Cell col="1" text="CompanyName"/>
-                <Cell col="2" text="ContactTitle"/>
-                <Cell col="3" text="Country"/>
-                <Cell col="4" text="Phone"/>
+                <Cell col="0" disptype="normal" text="ContactName"/>
+                <Cell col="1" disptype="normal" text="CompanyName"/>
+                <Cell col="2" disptype="normal" text="ContactTitle"/>
+                <Cell col="3" disptype="normal" text="Country"/>
+                <Cell col="4" disptype="normal" text="Phone"/>
+                <Cell col="5" disptype="normal" text="CustomerID"/>
+                <Cell col="6" disptype="normal" text="City"/>
+                <Cell col="7" disptype="normal" text="Address"/>
+                <Cell col="8" disptype="normal" text="PostalCode"/>
+                <Cell col="9" disptype="normal" text="OrderCount"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:ContactName"/>
-                <Cell col="1" text="bind:CompanyName"/>
-                <Cell col="2" text="bind:ContactTitle"/>
-                <Cell col="3" text="bind:Country"/>
-                <Cell col="4" text="bind:Phone"/>
-              </Band>
-            </Format>
-            <Format id="mobile_format">
-              <Columns>
-                <Column size="130"/>
-                <Column size="157"/>
-              </Columns>
-              <Rows>
-                <Row size="56"/>
-              </Rows>
-              <Band id="body">
-                <Cell style="align:left;padding:0 0 0 2;line:1 solid transparent ;background:#ffffffff;background2:#c5cae9ff;font:14 arial;selectbackground:#00796B;" text="bind:ContactName"/>
-                <Cell col="1" style="align:left;line:1 solid transparent ;background:#ffffffff;background2:#c5cae9ff;font:14 arial;selectbackground:#00796B;" text="bind:CompanyName" wordwrap="english"/>
+                <Cell col="0" disptype="normal" text="bind:ContactName"/>
+                <Cell col="1" disptype="normal" text="bind:CompanyName"/>
+                <Cell col="2" disptype="normal" text="bind:ContactTitle"/>
+                <Cell col="3" disptype="normal" text="bind:Country"/>
+                <Cell col="4" disptype="normal" text="bind:Phone"/>
+                <Cell col="5" disptype="normal" text="bind:CustomerID"/>
+                <Cell col="6" disptype="normal" text="bind:City"/>
+                <Cell col="7" disptype="normal" text="bind:Address"/>
+                <Cell col="8" disptype="normal" text="bind:PostalCode"/>
+                <Cell col="9" disptype="normal" text="bind:OrderCount"/>
               </Band>
             </Format>
           </Formats>
@@ -56,9 +58,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Static id="Static00" taborder="2" left="48" top="0" right="36.13%" height="70" style="background:#3f51b5ff;color:#eeeeeeff;align:center middle;font:bold 26 Roboto Thin;" text="North Wind Traders"/>
-        <Static id="Static01" taborder="3" text="Customers" left="0%" top="70" right="65.82%" height="25" style="background:#303f9fff;color:#ddddddff;padding:0 0 0 10;font:12 Roboto Light;shadow:outer 0,2 2 gray;"/>
-        <ImageViewer id="ImageViewer00" taborder="4" left="0%" top="0" height="70" image="URL('images::menu48.png')" width="48" style="background:#3f51b5ff;border:0 solid #e5e5e5ff ;"/>
+        <Div id="Div00" taborder="2" left="0%" top="0" right="0%" height="95" url="Base::Menu.xfdl"/>
       </Layout>
       <Layout name="GS5" screenid="user_GS5" width="480" height="720">
         <Grid id="Grid00" left="0%" top="95" formatid="mobile_format" right="0" autofittype="col" bottom="100" style="shadow:outer 0,0 0 gray;"/>
@@ -72,8 +72,6 @@
             </Layout>
           </Layouts>
         </Div>
-        <Static id="Static00" left="48" top="0" height="70" right="0%"/>
-        <Static id="Static01" left="0%" top="69" height="25" right="0%"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -100,7 +98,7 @@ application.set_usewaitcursor('true');
 
 this.customers_onload = function(obj:Form, e:nexacro.LoadEventInfo)
 {
-	myDataRef = new Firebase('https://north-wind.firebaseio.com/');
+	myDataRef = new Firebase('https://north-wind-view.firebaseio.com/');
 	
 	var form = this;
 	
@@ -114,30 +112,25 @@ this.customers_onload = function(obj:Form, e:nexacro.LoadEventInfo)
               }
               application.customersDS.bindJSON(values);
 	});
-
-	myDataRef.on('child_added', function (snapshot) {
-              var message = snapshot.val();
-              
-          });
 }
 
-var selectedContact;
 var orders;
 var customers;
 
 this.Grid00_onselectchanged = function(obj:Grid, e:nexacro.GridSelectEventInfo)
 {
-	this.selectedContact = application.customersDS.getRow(e.row);
-	this.BottomMenu.Static01.set_text(this.getOrderCount());
+	application.selectedCustomer = application.customersDS.getRow(e.row);
+	//this.BottomMenu.Static01.set_text(this.getOrderCount());
+	this.BottomMenu.Static01.set_text(application.selectedCustomer.OrderCount);
 }
 
 this.getOrderCount = function() {
-	if(this.selectedContact.CustomerID == undefined)
+	if(application.selectedCustomer.CustomerID == undefined)
 		return;
 	var ordersRef = new Firebase('https://north-wind.firebaseio.com/orders');
 	var orderCount = 0;
-	application.trace("selectd CustomerID = " + this.selectedContact.CustomerID);
- 	ordersRef.orderByChild("CustomerID").equalTo(this.selectedContact.CustomerID).once("value", 
+	application.trace("selectd CustomerID = " + application.selectedCustomer.CustomerID);
+ 	ordersRef.orderByChild("CustomerID").equalTo(application.selectedCustomer.CustomerID).once("value", 
  		function(snap) {
 			var orders = snap.val();
 			if(orders) {
@@ -155,7 +148,7 @@ this.getOrderCount = function() {
 this.getOrders = function() {
 	var ordersRef = new Firebase('https://north-wind.firebaseio.com/orders');
 	var orders;
-	ordersRef.orderByChild("CustomerID").equalTo(this.selectedContact.CustomerID).once("value", 
+	ordersRef.orderByChild("CustomerID").equalTo(application.selectedCustomer.CustomerID).once("value", 
  		function(snap) {
 			orders = snap.val();
 			if(orders) {
@@ -183,7 +176,7 @@ this.BottomMenu_Static00_onclick = function(obj:Static,  e:nexacro.ClickEventInf
 
 this.BottomMenu_Static01_onclick = function(obj:Static,  e:nexacro.ClickEventInfo)
 {
-	
+	application.mainframe.childframe.set_formurl('Base::Orders.xfdl');
 }
 ]]></Script>
   </Form>

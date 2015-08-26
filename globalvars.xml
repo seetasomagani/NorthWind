@@ -11,8 +11,20 @@
       <Column id="City" type="STRING" size="256"/>
       <Column id="Address" type="STRING" size="256"/>
       <Column id="PostalCode" type="STRING" size="256"/>
+      <Column id="OrderCount" type="STRING" size="256"/>
     </ColumnInfo>
   </Dataset>
   <Variable id="selectedCustomer" initval="null"/>
   <Variable id="myDataRef" initval="null"/>
+  <Dataset id="ordersDS">
+    <ColumnInfo>
+      <Column id="OrderID" type="STRING" size="256"/>
+      <Column id="OrderDate" type="STRING" size="256"/>
+      <Column id="ShipDate" type="STRING" size="256"/>
+      <Column id="ProductName" type="STRING" size="256"/>
+      <Column id="Quantity" type="STRING" size="256"/>
+      <Column id="ShippedDate" type="STRING" size="256"/>
+      <Column id="UnitPrice" type="STRING" size="256"/>
+    </ColumnInfo>
+  </Dataset>
 </GlobalVariables>
