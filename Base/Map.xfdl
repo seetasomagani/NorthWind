@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="1.5">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="Map" classname="Map" left="0" top="0" width="480" height="253" titletext="New Form" onload="Map_onload">
+    <Layouts>
+      <Layout>
+        <Div id="Div00" taborder="0" left="0%" top="0" right="0%" bottom="0" style="background:red;color:white;" text="A map should have been here"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.0"><![CDATA[var geocoder;
+var map;
+var infowindow;
+
+function includeJs() {
+	var googleMaps = "https://maps.googleapis.com/maps/api/js?address=princeton+university&region=us&key=AIzaSyAd2Qb3MvHFah83EGODca62TGbr_itqY7I&callback=initialize";
+	
+	application.trace('included google maps');
+    var js = document.createElement("script");
+    js.type = "text/javascript";
+    js.src = googleMaps;
+    document.body.appendChild(js);
+}
+
+window.onload = includeJs();
+
+window.initialize = function () {
+        var mapOptions = {
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+          zoom: 14
+        };
+        map = new google.maps.Map(document.getElementById('mainframe_childframe_form_Div01ScrollableContainerElement'),
+            mapOptions);
+        infowindow = new google.maps.InfoWindow({
+			content: 'No Content'
+		});
+  
+        if (navigator.geolocation) {
+            browserSupportFlag = true;
+            navigator.geolocation.getCurrentPosition(function (position) {
+                initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setCenter(initialLocation);
+            }, function () {
+                alert('geolocation not supported');
+            });
+            geocoder = new google.maps.Geocoder();
+        }
+}
+
+this.Map_onload = function(obj:Form, e:nexacro.LoadEventInfo)
+{
+		application.trace('loaded map.xfld');
+	includeJS();
+}
+]]></Script>
+  </Form>
+</FDL>

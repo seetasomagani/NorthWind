@@ -9,61 +9,83 @@
           <Formats>
             <Format id="default">
               <Columns>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="106"/>
+                <Column size="80"/>
+                <Column size="144"/>
+                <Column size="80"/>
               </Columns>
               <Rows>
-                <Row band="head" size="24"/>
-                <Row band="body" size="24"/>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell col="0" disptype="normal" text="OrderID"/>
-                <Cell col="1" disptype="normal" text="OrderDate"/>
-                <Cell col="2" disptype="normal" text="ShipDate"/>
-                <Cell col="3" disptype="normal" text="ProductName"/>
-                <Cell col="4" disptype="normal" text="Quantity"/>
-                <Cell col="5" disptype="normal" text="ShippedDate"/>
-                <Cell col="6" disptype="normal" text="UnitPrice"/>
+                <Cell text="OrderID"/>
+                <Cell col="1" text="OrderDate"/>
+                <Cell col="2" text="ProductName"/>
+                <Cell col="3" text="Quantity"/>
+                <Cell col="4" text="ShippedDate"/>
+                <Cell col="5" text="UnitPrice"/>
               </Band>
               <Band id="body">
-                <Cell col="0" disptype="normal" text="bind:OrderID"/>
-                <Cell col="1" disptype="normal" text="bind:OrderDate"/>
-                <Cell col="2" disptype="normal" text="bind:ShipDate"/>
-                <Cell col="3" disptype="normal" text="bind:ProductName"/>
-                <Cell col="4" disptype="normal" text="bind:Quantity"/>
-                <Cell col="5" disptype="normal" text="bind:ShippedDate"/>
-                <Cell col="6" disptype="normal" text="bind:UnitPrice"/>
+                <Cell text="bind:OrderID"/>
+                <Cell col="1" text="bind:OrderDate"/>
+                <Cell col="2" text="bind:ProductName"/>
+                <Cell col="3" text="bind:Quantity"/>
+                <Cell col="4" text="bind:ShippedDate"/>
+                <Cell col="5" text="bind:UnitPrice"/>
+              </Band>
+            </Format>
+            <Format id="mobile_format">
+              <Columns>
+                <Column size="138"/>
+                <Column size="233"/>
+                <Column size="108"/>
+              </Columns>
+              <Rows>
+                <Row size="48" band="head"/>
+                <Row size="56"/>
+              </Rows>
+              <Band id="head">
+                <Cell style="font:bold 16 arial;" text="Date"/>
+                <Cell col="1" style="font:bold 16 arial;" text="Product"/>
+                <Cell col="2" style="font:bold 16 arial;" text="Quantity"/>
+              </Band>
+              <Band id="body">
+                <Cell style="font:16 arial;" text="bind:OrderDate"/>
+                <Cell col="1" style="font:16 arial;" text="bind:ProductName"/>
+                <Cell col="2" style="font:16 arial;" text="bind:Quantity"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
+        <Div id="Div01" taborder="2" left="0%" top="415" style="background:aquamarine;" width="480" height="253" url="Base::Map.xfdl"/>
       </Layout>
-      <Layout name="GS5" screenid="user_GS5" width="480" height="720"/>
+      <Layout name="GS5" screenid="mobile,user_GS5" width="480" height="720">
+        <Grid id="Grid00" left="0%" top="95" height="273" right="0%" formatid="mobile_format"/>
+        <Div id="Div01" left="0%" top="370" right="0%" bottom="0" url="Base::Map.xfdl"/>
+      </Layout>
     </Layouts>
     <Script type="xscript5.0"><![CDATA[
 this.Orders_onload = function(obj:Form, e:nexacro.LoadEventInfo)
 {
 	var ordersRef = new Firebase('https://north-wind-view.firebaseio.com/orders');
 	
-	ordersRef.orderByChild("CustomerID").equalTo(application.selectedCustomer.CustomerID).once("value", 
- 		function(snap) {
-			var orders = snap.val();
-			if(orders) {
-				application.trace(orders + 'returned');
-				var keys = Object.keys(orders);
-				var values = [];
-				for(var i=0; i<keys.length; i++) {
-					values.push(orders[keys[i]]);
-				}
-				application.ordersDS.bindJSON(values);
-			}
- 		}
- 	);
+// 	ordersRef.orderByChild("CustomerID").equalTo(application.selectedCustomer.CustomerID).once("value", 
+//  		function(snap) {
+// 			var orders = snap.val();
+// 			if(orders) {
+// 				application.trace(orders + 'returned');
+// 				var keys = Object.keys(orders);
+// 				var values = [];
+// 				for(var i=0; i<keys.length; i++) {
+// 					values.push(orders[keys[i]]);
+// 				}
+// 				application.ordersDS.bindJSON(values);
+// 			}
+//  		}
+//  	);
 }
 ]]></Script>
   </Form>

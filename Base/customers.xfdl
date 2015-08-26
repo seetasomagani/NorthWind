@@ -4,53 +4,62 @@
   <Form id="customers" classname="customers" left="0" top="0" width="1024" height="768" titletext="North Wind Traders" onload="customers_onload">
     <Layouts>
       <Layout width="1024" height="768">
-        <Grid id="Grid00" taborder="0" useinputpanel="false" left="2.34%" top="95" height="313" binddataset="customersDS" width="949" onselectchanged="Grid00_onselectchanged" style="background:#c5cae9ff;border:0 solid #9f8f71ff,0 none #808080ff,0 none #808080ff,0 none #808080ff;shadow:outer 0,4 4 gray;">
+        <Grid id="Grid00" taborder="0" useinputpanel="false" left="0%" top="95" height="313" binddataset="customersDS" onselectchanged="Grid00_onselectchanged" style="background:#c5cae9ff;border:0 solid #9f8f71ff,0 none #808080ff,0 none #808080ff,0 none #808080ff;shadow:outer 0,4 4 gray;" right="0">
           <Formats>
             <Format id="default">
               <Columns>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
-                <Col size="80"/>
+                <Column size="166"/>
+                <Column size="216"/>
+                <Column size="95"/>
+                <Column size="102"/>
+                <Column size="212"/>
+                <Column size="91"/>
               </Columns>
               <Rows>
-                <Row band="head" size="24"/>
-                <Row band="body" size="24"/>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell col="0" disptype="normal" text="ContactName"/>
-                <Cell col="1" disptype="normal" text="CompanyName"/>
-                <Cell col="2" disptype="normal" text="ContactTitle"/>
-                <Cell col="3" disptype="normal" text="Country"/>
-                <Cell col="4" disptype="normal" text="Phone"/>
-                <Cell col="5" disptype="normal" text="CustomerID"/>
-                <Cell col="6" disptype="normal" text="City"/>
-                <Cell col="7" disptype="normal" text="Address"/>
-                <Cell col="8" disptype="normal" text="PostalCode"/>
-                <Cell col="9" disptype="normal" text="OrderCount"/>
+                <Cell text="ContactName"/>
+                <Cell col="1" text="CompanyName"/>
+                <Cell col="2" text="Phone"/>
+                <Cell col="3" text="CustomerID"/>
+                <Cell col="4" text="City"/>
+                <Cell col="5" text="OrderCount"/>
               </Band>
               <Band id="body">
-                <Cell col="0" disptype="normal" text="bind:ContactName"/>
-                <Cell col="1" disptype="normal" text="bind:CompanyName"/>
-                <Cell col="2" disptype="normal" text="bind:ContactTitle"/>
-                <Cell col="3" disptype="normal" text="bind:Country"/>
-                <Cell col="4" disptype="normal" text="bind:Phone"/>
-                <Cell col="5" disptype="normal" text="bind:CustomerID"/>
-                <Cell col="6" disptype="normal" text="bind:City"/>
-                <Cell col="7" disptype="normal" text="bind:Address"/>
-                <Cell col="8" disptype="normal" text="bind:PostalCode"/>
-                <Cell col="9" disptype="normal" text="bind:OrderCount"/>
+                <Cell text="bind:ContactName"/>
+                <Cell col="1" text="bind:CompanyName"/>
+                <Cell col="2" text="bind:Phone"/>
+                <Cell col="3" text="bind:CustomerID"/>
+                <Cell col="4" text="bind:City"/>
+                <Cell col="5" text="bind:OrderCount"/>
+              </Band>
+            </Format>
+            <Format id="mobile_format">
+              <Columns>
+                <Column size="162"/>
+                <Column size="216"/>
+                <Column size="97"/>
+              </Columns>
+              <Rows>
+                <Row size="48" band="head"/>
+                <Row size="56"/>
+              </Rows>
+              <Band id="head">
+                <Cell style="font:bold 16 arial;" text="Contact"/>
+                <Cell col="1" style="font:bold 16 arial;" text="Company"/>
+                <Cell col="2" style="font:bold 16 arial;" text="Orders"/>
+              </Band>
+              <Band id="body">
+                <Cell style="font:16 arial;" text="bind:ContactName" wordwrap="english"/>
+                <Cell col="1" style="font:16 arial;" text="bind:CompanyName" wordwrap="english"/>
+                <Cell col="2" style="font:16 arial;" text="bind:OrderCount"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
-        <Div id="BottomMenu" taborder="1" left="24" top="336" height="98" style="background:cornflowerblue;" width="480" onfling="BottomMenu_onfling" onslide="BottomMenu_onslide" onslidestart="BottomMenu_onslidestart" ontouchmove="BottomMenu_ontouchmove" onpinchend="BottomMenu_onpinchend">
+        <Div id="BottomMenu" taborder="1" left="216" top="424" height="98" style="background:cornflowerblue;shadow:outer 0,4 2 gray;" width="480" onfling="BottomMenu_onfling" onslide="BottomMenu_onslide" onslidestart="BottomMenu_onslidestart" ontouchmove="BottomMenu_ontouchmove" onpinchend="BottomMenu_onpinchend">
           <Layouts>
             <Layout width="480" height="140">
               <Static id="Static00" taborder="0" left="10" top="10" right="51%" style="background:powderblue;border:1 none #808080ff ;align:center middle;font:18 Arial;shadow:outer 0,2 2 gray;" bottom="10" text="Contact" onclick="BottomMenu_Static00_onclick"/>
