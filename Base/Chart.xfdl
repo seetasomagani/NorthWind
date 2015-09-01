@@ -60,39 +60,29 @@ var initChart = function (divElement) {
 	.append("line")
     .attr("y1", "100%");
 
-	application.trace('drawing');
-	
 	d3.json("readme.json", function(error, root) {
 		partition.nodes(root);
 		x.domain([0, root.value]).nice();
 		down(root, 0);
 	});
 
-	var myElements = document.querySelectorAll("rect.background");
-	for (var i = 0; i < myElements.length; i++) {
-		myElements[i].style.fill = 'white';
-	}
+	setStyle('rect.background', 'fill', 'white');
+	setStyle('.axis', 'shapeRendering', 'crispEdges');
+	setStyle('.axis path', ['fill', 'stroke'], ['none', '#000']);
+	setStyle('.axis line', ['fill', 'stroke'], ['none', '#000']);
+	setStyle('text', 'font', '10px sans-serif');
+}
 
-	myElements = document.querySelectorAll(".axis");
-	for (var i = 0; i < myElements.length; i++) {
-		myElements[i].style.shapeRendering = 'crispEdges';
-	}
-
-	myElements = document.querySelectorAll(".axis path");
-	for (var i = 0; i < myElements.length; i++) {
-		myElements[i].style.fill = 'none';
-		myElements[i].style.stroke = '#000';
-	}
-
-	myElements = document.querySelectorAll(".axis line ");
-	for (var i = 0; i < myElements.length; i++) {
-		myElements[i].style.fill = 'none';
-		myElements[i].style.stroke = '#000';
-	}
-
-	myElements = document.querySelectorAll("text");
-	for (var i = 0; i < myElements.length; i++) {
-			myElements[i].style.font = '10px sans-serif';
+function setStyle(selector, styleName, styleValue) {
+	elements = document.querySelectorAll(selector);
+	for(var i=0; i<elements.length; i++) {
+		if(Array.isArray(styleName)) {
+			styleName.forEach(function(style, index) {
+				elements[i].style[style] = styleValue[index];
+			});
+		} else {
+			elements[i].style[styleName] = styleValue;
+		}
 	}
 }
 
