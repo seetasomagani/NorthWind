@@ -5,13 +5,15 @@
     <Layouts>
       <Layout width="1024" height="95">
         <Static id="Static00" taborder="0" text="North Wind Traders" left="4.69%" top="0" height="70" style="background:#3f51b5ff;color:#eeeeeeff;align:center middle;font:bold 26 Roboto Thin;" right="0"/>
-        <Static id="Static01" taborder="1" text="Customers" left="0%" top="70" right="0%" height="25" style="background:#303f9fff;color:#ddddddff;padding:0 0 0 10;font:12 Roboto Light;shadow:outer 0,2 2 gray;"/>
         <ImageViewer id="ImageViewer00" taborder="2" image="URL('images::menu48.png')" left="0%" top="0" right="95.31%" height="70" style="background:#3f51b5ff;border:0 solid #e5e5e5ff ;"/>
+        <Static id="Static02" taborder="1" left="0%" top="70" right="0%" height="25" style="background:#303f9fff;color:#ddddddff;padding:0 0 0 10;font:12 Roboto Light;shadow:outer 0,2 2 gray;"/>
       </Layout>
       <Layout name="GS5" screenid="user_GS5" width="480" height="95">
         <ImageViewer id="ImageViewer00" left="0%" top="0" width="48" height="70"/>
-        <Static id="Static00" left="48" top="0" height="70" right="0"/>
       </Layout>
     </Layouts>
+    <Bind>
+      <BindItem id="item0" compid="Static02" propid="text" datasetid="pageNameDS" columnid="name"/>
+    </Bind>
   </Form>
 </FDL>

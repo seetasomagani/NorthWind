@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="1.5">
   <TypeDefinition url="..\default_typedef.xml"/>
-  <Form id="customers" classname="customers" left="0" top="0" width="1024" height="768" titletext="North Wind Traders" onload="customers_onload">
+  <Form id="customers" classname="customers" left="0" top="0" width="1024" height="904" titletext="North Wind Traders" onload="customers_onload">
     <Layouts>
-      <Layout width="1024" height="768">
+      <Layout width="480" height="720">
         <Grid id="Grid00" taborder="0" useinputpanel="false" left="0%" top="95" height="313" binddataset="customersDS" onselectchanged="Grid00_onselectchanged" style="background:#c5cae9ff;border:0 solid #9f8f71ff,0 none #808080ff,0 none #808080ff,0 none #808080ff;shadow:outer 0,4 4 gray;" right="0">
           <Formats>
             <Format id="default">
@@ -59,19 +59,21 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="BottomMenu" taborder="1" left="216" top="424" height="98" style="background:cornflowerblue;shadow:outer 0,4 2 gray;" width="480" onfling="BottomMenu_onfling" onslide="BottomMenu_onslide" onslidestart="BottomMenu_onslidestart" ontouchmove="BottomMenu_ontouchmove" onpinchend="BottomMenu_onpinchend">
+        <Div id="BottomMenu" taborder="1" left="32" top="792" height="98" style="background:cornflowerblue;shadow:outer 0,4 2 gray;" width="684" onfling="BottomMenu_onfling" onslide="BottomMenu_onslide" onslidestart="BottomMenu_onslidestart" ontouchmove="BottomMenu_ontouchmove" onpinchend="BottomMenu_onpinchend">
           <Layouts>
             <Layout width="480" height="140">
               <Static id="Static00" taborder="0" left="10" top="10" right="51%" style="background:powderblue;border:1 none #808080ff ;align:center middle;font:18 Arial;shadow:outer 0,2 2 gray;" bottom="10" text="Contact" onclick="BottomMenu_Static00_onclick"/>
-              <Static id="Static01" taborder="1" left="51%" top="10" right="10" style="background:powderblue;border:1 none #808080ff ;align:center middle;font:18 Arial;shadow:outer 0,2 2 gray;" bottom="10" onclick="BottomMenu_Static01_onclick"/>
+              <Static id="Static01" taborder="1" left="51%" top="10" right="10" style="background:powderblue;border:1 none #808080ff ;align:center middle;font:18 Arial;shadow:outer 0,2 2 gray;" bottom="10" onclick="BottomMenu_Static01_onclick" text="View Orders"/>
             </Layout>
           </Layouts>
         </Div>
         <Div id="Div00" taborder="2" left="0%" top="0" right="0%" height="95" url="Base::Menu.xfdl"/>
+        <Div id="Div01" left="0%" top="414" height="352" right="300" style="background:aliceblue;"/>
+        <Button id="Button00" taborder="3" text="Load Graphs" left="74.8%" top="460" right="4.69%" height="60" onclick="Button00_onclick"/>
       </Layout>
-      <Layout name="GS5" screenid="user_GS5" width="480" height="720">
-        <Grid id="Grid00" left="0%" top="95" formatid="mobile_format" right="0" autofittype="col" bottom="100" style="shadow:outer 0,0 0 gray;"/>
-        <Div id="BottomMenu" left="0%" right="0%" style="background:cornflowerblue;border:0 none #808080ff ;shadow:outer 0,3 3 gray;" height="100" bottom="0">
+      <Layout name="GS5" screenid="mobile,user_GS5" width="480" height="1280">
+        <Grid id="Grid00" left="0%" top="95" formatid="mobile_format" right="0" autofittype="col" style="shadow:outer 0,0 0 gray;" height="600"/>
+        <Div id="BottomMenu" left="0%" right="0%" style="background:cornflowerblue;border:0 none #808080ff ;shadow:outer 0,3 3 gray;" bottom="0" top="1181">
           <Layouts>
             <Layout width="480" height="140">
               <Static id="Static00" taborder="0" left="0%" top="0" right="50%" height="40" style="background:transparent;font:14 Dotum; border:1 none #808080ff ;"/>
@@ -129,8 +131,6 @@ var customers;
 this.Grid00_onselectchanged = function(obj:Grid, e:nexacro.GridSelectEventInfo)
 {
 	application.selectedCustomer = application.customersDS.getRow(e.row);
-	//this.BottomMenu.Static01.set_text(this.getOrderCount());
-	this.BottomMenu.Static01.set_text(application.selectedCustomer.OrderCount);
 }
 
 this.getOrderCount = function() {
@@ -185,7 +185,12 @@ this.BottomMenu_Static00_onclick = function(obj:Static,  e:nexacro.ClickEventInf
 
 this.BottomMenu_Static01_onclick = function(obj:Static,  e:nexacro.ClickEventInfo)
 {
-	application.mainframe.childframe.set_formurl('Base::Orders.xfdl');
+	application.loadForm('Base::Orders.xfdl', "Orders", application.mainframe.childframe);
+}
+
+this.Button00_onclick = function(obj:Button,  e:nexacro.ClickEventInfo)
+{
+	this.Div00.set_url("Base::Chart.xfdl");
 }
 ]]></Script>
   </Form>

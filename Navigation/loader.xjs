@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script type="xscript5.0"><![CDATA[
+application.loadForm = function(xfdl, title, target) {
+	target.set_formurl(xfdl);
+	var titleObj = {"name" : title};
+	application.pageNameDS.bindJSON(titleObj);
+}
+
+]]></Script>

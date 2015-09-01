@@ -1,0 +1,62 @@
+
+<html>
+  <head>
+        <title>Firebase Example</title>
+    <script src='js/firebase.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  </head>
+  <body>
+
+      <div id='messagesDiv'></div>
+      <input type="button" onclick="login()" value="Login"/>
+      <input type='text' id='nameInput' placeholder='Name'>
+      <input type='text' id='messageInput' placeholder='Message'>
+      <script>
+          var myDataRef = new Firebase('https://resplendent-inferno-7661.firebaseio.com/');
+
+          var login = function () {
+              myDataRef.authWithOAuthRedirect("google", function (error) {
+                  if (error) {
+                      console.log("Login Failed!", error);
+                  } else {
+                      // We'll never get here, as the page will redirect on success.
+                  }
+              });
+          }
+          var count = 0;
+          
+          $('#messageInput').keypress(function (e) {
+              if (e.keyCode == 13) {
+                  var name = $('#nameInput').val();
+                  var text = $('#messageInput').val();
+                  myDataRef.push({ 'name': name, 'text': text });
+                $('#messageInput').val('');
+              }
+          });
+          myDataRef.on('child_added', function (snapshot) {
+              var message = snapshot.val();
+              count++;
+              displayChatMessage(message.name, message.text);
+          });
+
+          myDataRef.on('child_removed', function (snapshot) {
+              var message = snapshot.val();
+              removeChatMessage(message.name, message.text);
+          });
+
+          myDataRef.once("value", function (snap) {
+              console.log(Object.keys(snap.val()));
+              console.log("initial data loaded!", Object.keys(snap.val()).length === count);
+          });
+
+          function displayChatMessage(name, text) {
+              $('<div/>').text(text).prepend($('<em/>').text(name + ': ')).appendTo($('#messagesDiv'));
+              $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+          };
+          function removeChatMessage(name, text) {
+              $('#messagesDiv div:contains(' + text + ')').remove();
+          }
+          
+      </script>
+  </body>
+</html>

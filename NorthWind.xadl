@@ -13,5 +13,8 @@
       <Screen name="user_GS5" type="phone" screenwidth="480" sizeorientation="portrait" autozoom="true" zoommin="100%" zoommax="" systemos="android" systemlocale="" formlayoutwidth="480" formlayoutheight="740"/>
     </ScreenInfo>
   </Application>
-  <Script type="xscript5.0"><![CDATA[]]></Script>
+  <Script type="xscript5.0"><![CDATA[
+include "Navigation::loader.xjs";
+
+]]></Script>
 </ADL>

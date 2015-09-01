@@ -27,4 +27,16 @@
       <Column id="UnitPrice" type="STRING" size="256"/>
     </ColumnInfo>
   </Dataset>
+  <Variable id="pageName" initval="customers"/>
+  <Dataset id="pageNameDS">
+    <ColumnInfo>
+      <Column id="name" type="STRING" size="256"/>
+    </ColumnInfo>
+    <Rows>
+      <Row>
+        <Col id="name">Customers</Col>
+      </Row>
+    </Rows>
+  </Dataset>
+  <Variable id="mapDivElement" initval="mainframe_childframe_form_Div01ScrollableContainerElement"/>
 </GlobalVariables>
